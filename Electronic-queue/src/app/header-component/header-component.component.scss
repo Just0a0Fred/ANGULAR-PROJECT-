@@ -1,0 +1,17 @@
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: darkblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}
