@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderVisibilityService } from '../header-visibility.service';
+import { HeaderVisibilityService } from '../services/header-visibility.service';
 
 @Component({
     selector: 'app-header-component',

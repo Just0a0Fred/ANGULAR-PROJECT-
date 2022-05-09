@@ -8,9 +8,13 @@ import { UserQueuesComponent } from './pages/user-queues/user-queues.component';
 import { UserCompaniesComponent } from './pages/user-companies/user-companies.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { HeaderComponentComponent } from './header-component/header-component.component';
-import { HeaderVisibilityService } from './header-visibility.service';
+import { HeaderVisibilityService } from './services/header-visibility.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
+import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
+import { AuthorizationService } from './services/authorization.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -21,15 +25,21 @@ import { RegistrationPageComponent } from './pages/registration-page/registratio
         UserCompaniesComponent,
         ProfilePageComponent,
         HeaderComponentComponent,
-        RegistrationPageComponent
+        RegistrationPageComponent,
+        PhoneNumberPipe,
+        AuthorizationPageComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule
     ],
-    providers: [HeaderVisibilityService],
+    providers: [
+        HeaderVisibilityService,
+        AuthorizationService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

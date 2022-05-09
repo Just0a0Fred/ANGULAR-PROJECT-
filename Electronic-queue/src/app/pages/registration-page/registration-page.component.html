@@ -1,4 +1,4 @@
-<h1>Sduhasdfasf</h1>
+<h1>Registration</h1>
 <form class="registration_form" [formGroup]="registrationForm">
     <div>
         <label>Тип учетной записи</label>
@@ -20,17 +20,17 @@
     </div>
     <div>
         <label>Номер телефона</label>
-        <input id="phonenumber" type="text" [formControlName]="'userPhoneNumber'">
+        <input id="phonenumber" type="tel" [formControlName]="'userPhoneNumber'" [value]="registrationForm.controls['userPhoneNumber'].value | phoneNumber" maxlength="17">
     </div>
     <div>
         <label>Пароль</label>
-        <input id="password" type="password" [formControlName]="'userPassword'">
+        <input id="password" type="password" [formControlName]="'userPassword'" placeholder="6+символов">
     </div>
     <div>
         <label>Название организации</label>
         <input id="organizationName" type="text" [formControlName]="'userOrganisationName'">
     </div>
     <div>
-        <button type="submit" (click)="onSubmit()">Создать аккаунт</button>
+        <button type="submit" [disabled] = "registrationForm.invalid" (click)="onSubmit()">Создать аккаунт</button>
     </div>
 </form>

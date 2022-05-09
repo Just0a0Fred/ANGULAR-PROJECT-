@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node index",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -22,7 +22,15 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "express": "*",
+    "mongoose": "*",
+    "body-parser": "*",
+    "jsonwebtoken": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "bcryptjs": "*",
+    "cors": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.0",

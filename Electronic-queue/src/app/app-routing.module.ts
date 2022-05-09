@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyListComponent } from './company-list/company-list.component';
+import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'user-companies', component: UserCompaniesComponent },
     { path: 'profile', component: ProfilePageComponent },
     { path: 'registration', component: RegistrationPageComponent },
+    { path: 'authorization', component: AuthorizationPageComponent },
     { path: '**', redirectTo: '' },
 ];
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { HeaderVisibilityService } from 'src/app/header-visibility.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HeaderVisibilityService } from 'src/app/services/header-visibility.service';
 import { IUser, User } from 'src/app/models/user';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
     selector: 'app-registration-page',
@@ -13,16 +14,16 @@ export class RegistrationPageComponent implements OnInit{
     public typeOfUsers: string[] = ['Клиент','Администратор','Работник'];
 
     public registrationForm: FormGroup = new FormGroup({
-        userType: new FormControl(),
-        userName: new FormControl(),
-        userSurname: new FormControl(),
-        userPassword: new FormControl(),
-        userSecondname: new FormControl(),
-        userPhoneNumber: new FormControl(),
-        userOrganisationName: new FormControl(),
+        userType: new FormControl('', Validators.required),
+        userName: new FormControl('', [Validators.required, Validators.pattern(/[^0-9]/g)]),
+        userSurname: new FormControl('', [Validators.required, Validators.pattern(/[^0-9]/i)]),
+        userPassword: new FormControl('', Validators.required),
+        userSecondname: new FormControl('', [Validators.required, Validators.pattern(/[^0-9]/i)]),
+        userPhoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^(\+7|8) \(9\d\d\) \d\d\d-\d\d-\d\d/)]),
+        userOrganisationName: new FormControl('', Validators.required)
     });
 
-    constructor( public header: HeaderVisibilityService ) { 
+    constructor( public header: HeaderVisibilityService, public registration: AuthorizationService ) { 
     }
 
     public ngOnInit(): void {
@@ -30,7 +31,7 @@ export class RegistrationPageComponent implements OnInit{
     }
 
     public onSubmit(): void {
-        const data: IUser = {
+        const formData: IUser = {
             type: this.registrationForm.controls['userType'].value,
             surname: this.registrationForm.controls['userSurname'].value,
             name: this.registrationForm.controls['userName'].value,
@@ -40,7 +41,7 @@ export class RegistrationPageComponent implements OnInit{
             organisationName: this.registrationForm.controls['userOrganisationName'].value
         };
 
-        this.currentUser = new User(data);
-        console.log(this.currentUser);
+        this.currentUser = new User(formData);
+        this.registration.registerUser(this.currentUser).subscribe();
     }
 }
