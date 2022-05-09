@@ -103,7 +103,11 @@
  * HTML
  * SCSS 
  
+ Бэкенд:
+ * Express
+ * Node.js
+ * MongoDB
+ 
  Дизайн:
- * Figma,
- * Illustartor,
- * After effects(Для создания анимаированных элементов)
+ * Figma
+ * Illustartor
