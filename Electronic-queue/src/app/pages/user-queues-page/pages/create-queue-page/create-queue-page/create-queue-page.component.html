@@ -1,0 +1,54 @@
+<div>
+    <div>
+        <div *ngIf="serverError !== ''"> 
+            {{serverError}}
+        </div>
+        <h1>Создайте очередь</h1>
+        <form [formGroup]="createQueueForm">
+            <div>
+                <label>Название очереди</label>
+                <input type="text" [formControlName]="'name'">
+                <small *ngIf = "(createQueueForm.controls['name'].value === '') && 
+                createQueueForm.controls['name'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div>
+                <label>Адресс очереди</label>
+                <input type="text" [formControlName]="'adress'">
+                <small *ngIf = "(createQueueForm.controls['adress'].value === '') && 
+                createQueueForm.controls['adress'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div>
+                <label>Кол-во человек</label>
+                <input type="number" [formControlName]="'maxClients'">
+                <small *ngIf = "(createQueueForm.controls['maxClients'].value === '') && 
+                createQueueForm.controls['maxClients'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div>
+                <label>Кабинет</label>
+                <input type="text" [formControlName]="'cabinet'">
+                <small *ngIf = "(createQueueForm.controls['cabinet'].value === '') && 
+                createQueueForm.controls['cabinet'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div>
+                <label>Дата назначения</label>
+                <input type="text" [formControlName]="'startDate'"
+                [value]="createQueueForm.controls['startDate'].value">
+                <small *ngIf = "(createQueueForm.controls['startDate'].value === '') && 
+                createQueueForm.controls['startDate'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div>
+                <button type="submit" [disabled] = "createQueueForm.invalid" (click)="onSubmit()">Создать аккаунт</button>
+            </div>
+        </form>
+    </div>
+</div>

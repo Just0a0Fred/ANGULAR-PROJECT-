@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class HeaderVisibilityService {
 
     public isVisible!: boolean;
+    public isButtonsVisible: boolean = true;
 
     constructor() { this.isVisible = true; }
 

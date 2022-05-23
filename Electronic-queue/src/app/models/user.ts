@@ -6,6 +6,7 @@ export class User {
     public phoneNumber: string;
     public password: string;
     public organisationName: string;
+    public userTalon: string;
 
     constructor(data: IUser){
         this.type = data.type;
@@ -15,6 +16,7 @@ export class User {
         this.phoneNumber = data.phoneNumber;
         this.password = data.password;
         this.organisationName = data.organisationName;
+        this.userTalon = data.userTalon;
     }
 }
 
@@ -26,4 +28,5 @@ export interface IUser {
     phoneNumber: string;
     password: string;
     organisationName: string;
+    userTalon: string;
 }

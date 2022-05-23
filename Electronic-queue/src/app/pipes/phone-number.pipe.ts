@@ -6,51 +6,51 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PhoneNumberPipe implements PipeTransform {
 
     public transform(value: string): string {
-        if (/^7/g.test(value)){
-            return '+' + value + ' (';
+        if (/^(7|8)$/g.test(value)){
+            return '+7 (';
         }
 
-        if (/^8$/g.test(value)){
-            return value + ' (';
-        }
-
-        if (/^(\+7|8) \(9\d\d$/g.test(value)){
+        if (/^\+7 \(9\d\d$/g.test(value)){
             return value + ') ';
         }
 
-        if (/^(\+7|8) \(9\d\d\d$/g.test(value)){
+        if (/^\+7 \(9\d\d\d$/g.test(value)){
             return value.slice(0, -1) + ') ' + value.slice(-2, -1);
         }
 
-        if ((/^(\+7|8) \(9\d\d\) \d\d\d$/g.test(value)) || 
-            (/^(\+7|8) \(9\d\d\) \d\d\d\-\d\d$/g.test(value))){
+        if ((/^\+7 \(9\d\d\) \d\d\d$/g.test(value)) || 
+            (/^\+7 \(9\d\d\) \d\d\d\-\d\d$/g.test(value))){
             return value + '-';
         }
 
-        if ((/^(\+7|8) \(9\d\d\) \d\d\d\d$/g.test(value)) || 
-            (/^(\+7|8) \(9\d\d\) \d\d\d\-\d\d\d$/g.test(value))){
+        if ((/^\+7 \(9\d\d\) \d\d\d\d$/g.test(value)) || 
+            (/^\+7 \(9\d\d\) \d\d\d\-\d\d\d$/g.test(value))){
             return value.slice(0, -1) + '-' + value.slice(-1);
         }
 
-        if (/^(\+7|8) \($/g.test(value)){
+        if (/^\+7 \($/g.test(value)){
             return '';
         }
 
-        if ((/^(\+7|8) \(9\d\d\) \d\d\d\-$/g.test(value)) || 
-        (/^(\+7|8) \(9\d\d\) \d\d\d\-\d\d\-$/g.test(value))){
+        if ((/^\+7 \(9\d\d\) \d\d\d\-$/g.test(value)) || 
+        (/^\+7 \(9\d\d\) \d\d\d\-\d\d\-$/g.test(value))){
             return value.slice(0,-1);
         }
 
-        if (/^(\+7|8) \(9\d\d\) $/g.test(value)){
+        if (/^\+7 \(9\d\d\) $/g.test(value)){
             return value.slice(0, -2);
         }
 
-        if (/^(\+7|8) \(9\d\d\)$/g.test(value)){
+        if (/^\+7 \(9\d\d\)$/g.test(value)){
             return value.slice(0, -1);
         }
 
-        if (/^9/g.test(value)){
+        if (/^9$/g.test(value)){
             return '+7 (' + value;
+        }
+
+        if (/^(8|7) \(9\d\d\) \d\d\d\-\d\d\-\d\d$/g.test(value)){
+            return '+7 (' + value.slice(3, -1) + value.slice(-1);
         }
 
         return value;
