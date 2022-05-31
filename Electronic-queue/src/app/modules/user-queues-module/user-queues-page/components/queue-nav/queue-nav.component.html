@@ -1,0 +1,2 @@
+<button routerLink="/user-queues/created-queues" *ngIf="isAdmin" class="tab" [ngClass]="{'selected': signedSelected === false}">Созданные</button>
+<button routerLink="/user-queues/signed-queues" class="tab" [ngClass]="{'selected': signedSelected === true}">Записанные</button>

@@ -1,8 +1,0 @@
-<div class="header" *ngIf="header.isVisible">
-    <a routerLink="">Главная</a>
-    <a routerLink="/company-list">Список компаний</a>
-    <a routerLink="/user-queues/signed-queues">Мои очереди</a>
-    <a routerLink="/profile" *ngIf="!header.isButtonsVisible">Профиль</a>
-    <button routerLink="/registration" *ngIf="header.isButtonsVisible">Зарегестрироваться</button>
-    <button routerLink="/authorization" *ngIf="header.isButtonsVisible">Войти</button>
-</div>

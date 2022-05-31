@@ -1,0 +1,11 @@
+.breadcrumb {
+    display: flex;
+}
+
+li {
+    list-style-type: none;
+}
+
+li:hover {
+    text-decoration: underline;
+}

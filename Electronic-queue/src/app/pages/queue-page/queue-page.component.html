@@ -1,0 +1,34 @@
+<div class="queue-page">
+    <div>
+        {{selectedQueue.name}}
+    </div>
+    <div>
+        {{selectedQueue.organisation}}
+    </div>
+    <div>
+        {{selectedQueue.adress}}
+    </div>
+    <div>
+        {{selectedQueue.cabinet}}
+    </div>
+    <div>
+        Свободные места: {{selectedQueue.maxClients}}.
+    </div>
+    <div>
+        Дата назначения: {{selectedQueue.startDate}}.
+    </div>
+    <div class="button-container">
+        <button (click)="enrollToSelectedQueue()" [disabled]="isUserSigned">Записаться</button>
+        <button (click)="unsubscribeFromSelectedQueue()" *ngIf="isUserSigned">Отписаться</button>
+    </div>
+    <table *ngIf="isUserCreator && (selectedQueue.queue.length !== 0)">
+        <tr>
+            <th>Талон</th>
+            <th>Клиент</th>
+        </tr>
+        <tr *ngFor="let user of selectedQueue.queue">
+            <td>{{user.talon}}</td>
+            <td>{{user.userInfo}}</td>
+        </tr>
+    </table>
+</div>

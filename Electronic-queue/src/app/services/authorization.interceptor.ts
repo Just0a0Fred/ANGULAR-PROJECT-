@@ -1,17 +1,18 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { IUser } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthorizationInterceptor implements HttpInterceptor {
     
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(req: HttpRequest<IUser>, next: HttpHandler): Observable<HttpEvent<IUser>> {
         const token: string | null = localStorage.getItem('token');
 
         if (token) {
-            const clonedRequest: HttpRequest<any> = req.clone({
+            const clonedRequest: HttpRequest<IUser> = req.clone({
                 headers: req.headers.set('Authorization', 'Bearer ' + token)
             });
 

@@ -1,6 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const QueueSchema = new Schema ({
+    id: {type: Number},
     queue: {type: Array},
     startDate: {type: String, required: true},
     name: {type: String, required: true},

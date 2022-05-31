@@ -1,0 +1,5 @@
+<h1 *ngIf="!isLoading && (userQueues.length === 0)">Вы еще не записаны в очереди</h1>
+<div class="queue-list">
+    <small *ngIf="isLoading"> Загрузка... </small>
+    <app-queue-card *ngFor="let userQueue of userQueues" [userQueue] = "userQueue" (click)="onSelected(userQueue)"></app-queue-card>
+</div>

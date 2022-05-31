@@ -1,7 +1,10 @@
 <div>
+    <div *ngIf="isLoading">
+        Загрузка...
+    </div>
     <ul>
         <li>{{user.surname}} {{user.name}} {{user.secondname}}</li>
-        <li>{{user.organisationName}}</li>
+        <li *ngIf="user.type === 'Администратор'">{{user.organisationName}}</li>
         <li>{{user.phoneNumber}}</li>
         <li>{{user.type}}</li>
     </ul>

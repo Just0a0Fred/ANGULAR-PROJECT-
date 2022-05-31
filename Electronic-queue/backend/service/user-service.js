@@ -60,11 +60,41 @@ class UserService {
         }
     }
 
-    async getUsers(token) {
+    async checkAuthorization(refreshToken, token) {
+        if (!refreshToken) {
+            throw ApiError.UnathorizedError();
+        }
+        if (!token) {
+            throw ApiError.UnathorizedError();
+        }
+        const isATokenValid = tokenService.validateAccessToken(token);
+        const isRTokenValid = tokenService.validateRefreshToken(refreshToken);
+        const user = await UserModel.findById(isRTokenValid.id);
+        if (!isATokenValid) {
+            if (!isRTokenValid) {
+                throw ApiError.UnathorizedError();
+            }
+            return this.refresh(refreshToken);
+        }
+
+        return {
+            refreshToken: refreshToken,
+            accessToken: token,
+            user: new UserDto(user),
+        }
+    }
+
+    async getUser(token) {
         const userId = tokenService.findIdByToken(token);
         const user = await UserModel.findOne({_id: userId});
         user.password = '';
         return user;
+    }
+
+    async getUserType(token) {
+        const userId = tokenService.findIdByToken(token);
+        const user = await UserModel.findOne({_id: userId});
+        return user.type;
     }
 
     async generateTalon() {
@@ -73,7 +103,6 @@ class UserService {
         if (lastTalon.slice(1,3) == '999' && ((96 < lastTalon.charCodeAt(0)) && (lastTalon.charCodeAt(0) < 123))) {
             return String.fromCharCode(lastTalon.charCodeAt(0) + 1) + '000';
         } else {
-            console.log(Number(lastTalon.slice(1, 4)));
             return lastTalon[0] + (Number(lastTalon.slice(1, 4)) + 1).toString();
         }
     }

@@ -1,0 +1,8 @@
+<app-breadcrumbs class="breadcrumbs"></app-breadcrumbs>
+<h1 *ngIf="!isLoading && (userQueues.length === 0)">Еще нет созданных очередей</h1>
+<div class="queue-list">
+    <small *ngIf="isLoading"> Загрузка... </small>
+    <app-queue-card *ngFor="let userQueue of userQueues" [userQueue] = "userQueue" (click)="onSelected(userQueue)"></app-queue-card>
+</div>
+<button routerLink="create-queue">Создать очередь</button>
+<router-outlet></router-outlet>

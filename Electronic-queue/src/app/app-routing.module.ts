@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyListComponent } from './company-list/company-list.component';
 import { AutentificationGuard } from './guards/autentification.guard';
-import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
-import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
-import { CreateQueuePageComponent } from './pages/user-queues-page/pages/create-queue-page/create-queue-page/create-queue-page.component';
-import { CraetedQueuesPageComponent } from './pages/user-queues-page/pages/created-queues/craeted-queues-page.component';
-import { SignedQueuesPageComponent } from './pages/user-queues-page/pages/signed-queues/signed-queues-page/signed-queues-page.component';
-import { UserQueuesPageComponent } from './pages/user-queues-page/user-queues-page.component';
+import { QueuePageComponent } from './pages/queue-page/queue-page.component';
+import { AuthorizationModule } from './modules/authorization-module/authorization.module';
+import { RegistrationModule } from './modules/registration-module/registration.module';
+import { UserQueuesModule } from './modules/user-queues-module/user-queues.module';
 
 const routes: Routes = [
     { 
@@ -17,43 +14,26 @@ const routes: Routes = [
         component: MainPageComponent
     },
     { 
-        path: 'company-list', 
-        component: CompanyListComponent 
-    },
-    { 
-        path: 'user-queues',
-        component: UserQueuesPageComponent,
-        canActivate: [AutentificationGuard],
-        children: [
-            {
-                path: 'created-queues',
-                component: CraetedQueuesPageComponent,
-                canActivate: [AutentificationGuard],
-            },
-            {
-                path: 'signed-queues',
-                component: SignedQueuesPageComponent,
-                canActivate: [AutentificationGuard],
-            },
-            {
-                path: 'create-queue',
-                component: CreateQueuePageComponent,
-                canActivate: [AutentificationGuard],
-            },
-        ], 
-    },
-    { 
         path: 'profile', 
         component: ProfilePageComponent,
         canActivate: [AutentificationGuard], 
     },
     { 
-        path: 'registration', 
-        component: RegistrationPageComponent
+        path: 'authorization', 
+        loadChildren: ():Promise<typeof AuthorizationModule> => import('./modules/authorization-module/authorization.module').then((x: any) => x.AuthorizationModule),
     },
     { 
-        path: 'authorization', 
-        component: AuthorizationPageComponent 
+        path: 'registration', 
+        loadChildren: ():Promise<typeof RegistrationModule> => import('./modules/registration-module/registration.module').then((x: any) => x.RegistrationModule),
+    },
+    {
+        path: 'user-queues',
+        loadChildren: ():Promise<typeof UserQueuesModule> => import('./modules/user-queues-module/user-queues.module').then((x: any) => x.UserQueuesModule),
+    },
+    {
+        path: 'queue/:id',
+        component: QueuePageComponent,
+        canActivate: [AutentificationGuard],
     },
     { 
         path: '**',

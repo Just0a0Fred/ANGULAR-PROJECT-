@@ -1,1 +1,9 @@
-<p>main-page works!</p>
+<div class="main-container">
+    <small *ngIf="isLoading"> Загрузка... </small>
+    <div *ngIf="!isLoading && (userQueues.length === 0)">
+        Никаких очередей нет
+    </div>
+    <div class="queue-list">
+        <app-queue-card *ngFor="let userQueue of userQueues" [userQueue] = "userQueue" (click)="onSelected(userQueue)"></app-queue-card>
+    </div>
+</div>

@@ -34,10 +34,11 @@ class UserController {
         }
     }
 
-    async refresh(req, res, next) {
+    async checkAuthorization(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
-            const userData = await userService.refresh(refreshToken);
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const userData = await userService.checkAuthorization(refreshToken, accessToken);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 2 * 24 * 60 * 60 * 1000, httpOnly: true});
 
             return res.json(userData);
@@ -48,8 +49,21 @@ class UserController {
 
     async getUser(req, res, next) {
         try {
-            const user = await userService.getUsers(req.headers.authorization.split(' ')[1]);
+            const user = await userService.getUser(req.headers.authorization.split(' ')[1]);
             return res.json(user);
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    async checkUserTypeAdmin(req, res, next) {
+        try {
+            const userType = await userService.getUserType(req.headers.authorization.split(' ')[1]);
+            if (userType == 'Клиент') {
+                return res.json(false);
+            }
+            
+            return res.json(true);
         } catch(e) {
             next(e);
         }

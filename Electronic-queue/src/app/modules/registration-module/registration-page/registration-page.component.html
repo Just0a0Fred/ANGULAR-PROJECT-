@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="registrationForm">
+        <div *ngIf="serverError !== ''"> 
+            {{serverError}}
+        </div>
+        <h1>Registration</h1>
+        <form class="form_group" [formGroup]="registrationForm">
+            <div class="control_container">
+                <label>Тип учетной записи</label>
+                <select class="form_control" id="typeOfUser" name="typeOfUser" [formControlName]="'userType'">
+                    <option *ngFor="let typeOfUser of typeOfUsers" [value]="typeOfUser">{{typeOfUser}}</option>
+                </select>
+                <small *ngIf = "(registrationForm.controls['userType'].value === '') && 
+                registrationForm.controls['userType'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div class="control_container">
+                <label>Фаимилия</label>
+                <input class="form_control" id="surname" type="text" [formControlName]="'userSurname'" >
+                <small *ngIf = "(registrationForm.controls['userSurname'].value === '') && 
+                registrationForm.controls['userSurname'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div class="control_container">
+                <label>Имя</label>
+                <input class="form_control" id="name" type="text" [formControlName]="'userName'" >
+                <small *ngIf = "(registrationForm.controls['userName'].value === '') && 
+                registrationForm.controls['userName'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div class="control_container">
+                <label>Отчество</label>
+                <input class="form_control" id="secondname" type="text" [formControlName]="'userSecondname'">
+                <small *ngIf = "(registrationForm.controls['userName'].value === '') && 
+                registrationForm.controls['userName'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div class="control_container">
+                <label>Номер телефона</label>
+                <input class="form_control" id="phonenumber" type="tel" [formControlName]="'userPhoneNumber'" placeholder="+7 (9__) ___-__-__"
+                [value]="registrationForm.controls['userPhoneNumber'].value | phoneNumber" maxlength="18" (keypress)="checkLetters($event)">
+                <div *ngIf = "registrationForm.controls['userPhoneNumber'].invalid">
+                    <small *ngIf = "(registrationForm.controls['userPhoneNumber'].value === '') && 
+                    registrationForm.controls['userPhoneNumber'].touched">
+                        Данное поле обязательное.
+                    </small>
+                    <small *ngIf = "registrationForm.controls['userPhoneNumber'].touched && 
+                    registrationForm.controls['userPhoneNumber'].hasError('pattern')">
+                        Номер телефона должен иметь вид +7 (9__) ___-__-__.
+                    </small>
+                </div>
+            </div>
+            <div class="control_container">
+                <label>Пароль</label>
+                <input class="form_control" id="password" type="password" [formControlName]="'userPassword'" placeholder="6+символов"> 
+                <small *ngIf = "(registrationForm.controls['userPassword'].value === '') && 
+                registrationForm.controls['userPassword'].touched">
+                    Данное поле обязательное.
+                </small>
+            </div>
+            <div class="control_container">
+                <label>Подтвердить пароль</label>
+                <input class="form_control" id="checkPassword" type="password" [formControlName]="'checkPassword'" placeholder="6+символов"> 
+                <small *ngIf = "(registrationForm.controls['checkPassword'].value === '') && 
+                registrationForm.controls['checkPassword'].touched">
+                    Данное поле обязательное.
+                </small>
+                <small *ngIf = "(registrationForm.controls['checkPassword'].value !== registrationForm.controls['userPassword'].value) && 
+                registrationForm.controls['checkPassword'].touched">
+                    Пароли не совпадают.
+                </small>
+            </div>
+            <div class="control_container" *ngIf = "(registrationForm.controls['userType'].value === 'Администратор')">
+                <label>Название организации</label>
+                <input class="form_control" id="organizationName" type="text" [formControlName]="'userOrganisationName'">
+            </div>
+            <div>
+                <button type="submit" [disabled] = "registrationForm.invalid || isLoading" (click)="onSubmit()">Создать аккаунт</button>
+            </div>
+        </form>
+    </div>
+</div>

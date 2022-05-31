@@ -1,0 +1,7 @@
+.queue-list {
+    display: grid;
+    justify-content: center;
+    padding: 20px;
+    grid-template-columns: repeat(3, minmax(70px, 200px));
+    grid-gap: 20px;
+}

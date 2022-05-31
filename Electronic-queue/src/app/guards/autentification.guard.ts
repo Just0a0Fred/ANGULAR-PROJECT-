@@ -13,11 +13,10 @@ export class AutentificationGuard implements CanActivate {
     public canActivate(): Observable<boolean | UrlTree> 
       | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-
         if (!this._authorization.checkAuthorization()) {
             this._router.navigate(['']);
             
-            return true;
+            return false;
         }
         
         return true;

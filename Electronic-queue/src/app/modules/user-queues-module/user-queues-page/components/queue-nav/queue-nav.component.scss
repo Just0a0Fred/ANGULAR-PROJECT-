@@ -1,0 +1,14 @@
+.tab {
+    background-color: rgba($color: grey, $alpha: 0.2);
+    padding: 10px;
+    border: none;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.tab:hover {
+    background-color: rgba($color: grey, $alpha: 0.5);
+}
+
+.selected {
+    background-color: white;
+}

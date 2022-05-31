@@ -1,5 +1,8 @@
+import { ISignedUsers } from './signedUsers';
+
 export class Queue {
-    public queue: Object[];
+    public id: number;
+    public queue: ISignedUsers[];
     public name: string;
     public adress: string;
     public organisation: string;
@@ -9,6 +12,7 @@ export class Queue {
     public maxClients: number;
 
     constructor(data: IQueue){
+        this.id = data.id;
         this.name = data.name;
         this.adress = data.adress;
         this.queue = data.queue;
@@ -21,7 +25,8 @@ export class Queue {
 }
 
 export interface IQueue {
-    queue: Object[];
+    id: number;
+    queue: ISignedUsers[];
     name: string;
     adress: string;
     organisation: string;

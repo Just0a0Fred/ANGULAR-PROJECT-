@@ -23,11 +23,16 @@ export class AuthorizationService {
         return this.http.post<{}>('http://localhost:3000/api/logout', '', { withCredentials: true });
     };
 
-    public async checkAuthorization(): Promise<boolean> {
+    public checkAuthorization(): boolean {
         if (localStorage.getItem('token')){
-            await this.http.post<IAuthResponse>('http://localhost:3000/api/refresh', ' ', { withCredentials: true }).subscribe({
+            this.http.post<IAuthResponse>('http://localhost:3000/api/checkAuthorization', '', { withCredentials: true }).subscribe({
                 next: (data: IAuthResponse) => {
                     this.storeUser(data.accessToken);
+
+                    return true;
+                },
+                error: () => {
+                    return false;
                 }
             });
 
@@ -35,6 +40,10 @@ export class AuthorizationService {
         } else {
             return false;
         }
+    }
+
+    public checkUserType(): Observable<boolean> {
+        return this.http.get<boolean>('http://localhost:3000/api/isUserAdmin');
     }
 
     public storeUser(token: string): void {
